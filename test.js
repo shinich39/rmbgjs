@@ -1,6 +1,8 @@
 import rmbg from "./index.js";
 import fs from "node:fs";
 
-const buffer = rmbg.exec("./test/1.jpg");
-fs.writeFileSync("./test/3.png", buffer);
-console.log(buffer);
+;(async function() {
+  const input = fs.readFileSync("./test/1.jpg");
+  const buffer = await rmbg.exec(input);
+  fs.writeFileSync("./test/2.png", buffer);
+})();

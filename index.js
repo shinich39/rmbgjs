@@ -1,8 +1,9 @@
 'use strict';
 
 import path from "node:path";
-import fs from "node:fs";
+import fs, { writeFileSync } from "node:fs";
 import { spawn, spawnSync, execSync, execFileSync } from "node:child_process";
+import { fileTypeFromBuffer } from "file-type";
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -43,9 +44,9 @@ function install() {
   console.log("rmbgjs transparent-background installed.");
 }
 
-function run(input, mode) {
-  if (!input || !fs.existsSync(input)) {
-    throw new Error("Source not found.");
+async function exec(input, mode) {
+  if (!input) {
+    throw new Error("Input not found.");
   }
   if (!mode) {
     mode = "fast";
@@ -54,8 +55,10 @@ function run(input, mode) {
     install();
   }
 
+  const type = await fileTypeFromBuffer(input);
+
+  console.log("rmbgjs input type:", type.mime);
   console.log("rmbgjs mode:", mode);
-  console.log("rmbgjs input:", input);
 
   // create tmp directory
   if (!fs.existsSync(TMP_PATH)) {
@@ -67,31 +70,36 @@ function run(input, mode) {
     fs.unlinkSync(path.join(TMP_PATH, fileName));
   }
 
+  // create input image
+  const srcName = new Date().valueOf();
+  const srcPath = path.join(TMP_PATH, srcName + "." + type.ext);
+  fs.writeFileSync(srcPath, input);
+
   // remove background
   execFileSync(EXE_PATH, [
     "--mode",
     mode,
     "--source",
-    input,
+    srcPath,
     "--dest",
     TMP_PATH,
   ]);
 
-  const filePath = path.join(TMP_PATH, path.basename(input, path.extname(input)) + "_rgba.png");
+  const dstPath = path.join(TMP_PATH, srcName + "_rgba.png");
 
-  if (!fs.existsSync(filePath)) {
+  if (!fs.existsSync(dstPath)) {
     throw new Error("rmbgjs occurred error.");
   }
 
   console.log("rmbgjs completed.");
   
   // to buffer
-  return fs.readFileSync(filePath);
+  return fs.readFileSync(dstPath);
 }
 
 // esm
 export default {
-  exec: run,
+  exec,
 }
 
 // cjs

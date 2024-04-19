@@ -11,5 +11,8 @@
     "javascript"
   ],
   "author": "shinich39 <shinich39@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "file-type": "^19.0.0"
+  }
 }
