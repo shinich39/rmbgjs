@@ -13,6 +13,7 @@ const ACTIVATE_PATH = path.join(__dirname, "venv", "Scripts", "activate.bat");
 const DEACTIVAATE_APTH = path.join(__dirname, "venv", "Scripts", "deactivate.bat");
 const PIP_PATH = path.join(__dirname, "venv", "Scripts", "pip.exe");
 const EXE_PATH = path.join(__dirname, "venv", "Scripts", "transparent-background.exe");
+const MODULE_PATH = path.join(__dirname, "libs", "transparent-background-1.2.12.zip");
 const TMP_PATH = path.join(__dirname, "tmp");
 
 function install() {
@@ -36,7 +37,7 @@ function install() {
   
   execFileSync(PIP_PATH, [
     "install",
-    "./libs/transparent-background-1.2.12.zip"
+    MODULE_PATH,
   ]);
 
   console.log("rmbgjs transparent-background installed.");
