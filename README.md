@@ -10,10 +10,12 @@ This module wrapped [transparent-background](https://github.com/plemeri/transpar
 import rmbg from 'rmbgjs'; // esm
 
 const mode = "fast"; // fast, base, base-nightly
-const input = "test/1.jpg";
-const output = "test/"; // directory path
-const res = rmbg(mode, input, output);
-// test/1.png
+const input = "./test/1.jpg";
+const buffer = rmbg(input, mode);
+// <Buffer 89 50 4e 47 0d 0a ... more bytes>
+
+// save image file
+fs.writeFileSync("./test/2.png", buffer);
 ```
 
 ## Credits

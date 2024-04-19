@@ -42,46 +42,31 @@ function install() {
   console.log("rmbgjs transparent-background installed.");
 }
 
-function rename(oldPath, newPath) {
-  if (fs.existsSync(newPath)) {
-    fs.unlinkSync(newPath);
-  }
-  if (fs.existsSync(oldPath)) {
-    fs.renameSync(oldPath, newPath);
-  }
-}
-
-function run(mode, input, output, overwrite) {
+function run(input, mode) {
   if (!input || !fs.existsSync(input)) {
     throw new Error("Source not found.");
-  }
-  if (!output) {
-    output = path.join(path.dirname(input), "output");
-    if (!fs.existsSync(output)) {
-      fs.mkdirSync(output);
-    }
   }
   if (!mode) {
     mode = "fast";
   }
-  if (!overwrite) {
-    overwrite = false;
-  }
   if (!fs.existsSync(VENV_PATH)) {
     install();
-  }
-  if (!overwrite && fs.existsSync(output)) {
-    throw new Error("Output already exists.");
   }
 
   console.log("rmbgjs mode:", mode);
   console.log("rmbgjs input:", input);
-  console.log("rmbgjs output:", output);
 
+  // create tmp directory
   if (!fs.existsSync(TMP_PATH)) {
     fs.mkdirSync(TMP_PATH);
   }
 
+  // clear tmp directory
+  for (const fileName of fs.readdirSync(TMP_PATH)) {
+    fs.unlinkSync(path.join(TMP_PATH, fileName));
+  }
+
+  // remove background
   execFileSync(EXE_PATH, [
     "--mode",
     mode,
@@ -91,12 +76,16 @@ function run(mode, input, output, overwrite) {
     TMP_PATH,
   ]);
 
-  const oldPath = path.join(TMP_PATH, path.basename(input, path.extname(input)) + "_rgba.png");
-  const newPath = output;
-  
-  rename(oldPath, newPath);
+  const filePath = path.join(TMP_PATH, path.basename(input, path.extname(input)) + "_rgba.png");
 
-  console.log("rmbgjs completed:", newPath);
+  if (!fs.existsSync(filePath)) {
+    throw new Error("rmbgjs occurred error.");
+  }
+
+  console.log("rmbgjs completed.");
+  
+  // to buffer
+  return fs.readFileSync(filePath);
 }
 
 // esm
