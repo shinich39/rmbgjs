@@ -4,11 +4,6 @@ Remove background in javascript.
 
 This module wrapped [transparent-background](https://github.com/plemeri/transparent-background) module.
 
-## Demo
-
-[image-1](./test/1.jpg)
-[image-2](./test/2.png)
-
 ## Usage
 
 ```js
