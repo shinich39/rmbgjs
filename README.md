@@ -4,8 +4,8 @@ Remove background in javascript.
 
 This module wrapped [transparent-background](https://github.com/plemeri/transparent-background) module.
 
-<img href="https://raw.githubusercontent.com/shinich39/rmbgjs/main/test/1.jpg" height="200px">
-<img href="https://raw.githubusercontent.com/shinich39/rmbgjs/main/test/2.png" height="200px">
+<img src="https://raw.githubusercontent.com/shinich39/rmbgjs/main/test/1.jpg" height="200px" />
+<img src="https://raw.githubusercontent.com/shinich39/rmbgjs/main/test/2.png" height="200px" />
 
 ## Usage
 
