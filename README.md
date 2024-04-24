@@ -20,7 +20,7 @@ const output = await rmbg.exec(input, mode);
 fs.writeFileSync("./test/2.png", output);
 ```
 
-## Credits
+## References
 
 - [transparent-background](https://github.com/plemeri/transparent-background)
 - [InSPyReNet](https://github.com/plemeri/InSPyReNet)
