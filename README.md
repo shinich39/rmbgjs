@@ -24,7 +24,7 @@ fs.writeFileSync("./test/2.png", output);
 
 Copy and paste image files to "/rmbgjs/input" directory.
 
-Save processed images to "/rmbgjs/output" directory after processing.
+Save processed images to "/rmbgjs/output" directory.
 
 ```console
 npm start
