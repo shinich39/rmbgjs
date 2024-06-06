@@ -19,7 +19,7 @@ const TMP_PATH = path.join(__dirname, "tmp");
 
 function install() {
   if (fs.existsSync(VENV_PATH)) {
-    console.log("rmbgjs venv already created.");
+    console.log("> rmbgjs venv already created.");
     return;
   }
 
@@ -29,10 +29,10 @@ function install() {
     VENV_PATH,
   ]);
 
-  console.log("rmbgjs venv created.");
+  console.log("> rmbgjs venv created.");
 
   if (fs.existsSync(EXE_PATH)) {
-    console.log("rmbgjs transparent-background already installed.");
+    console.log("> rmbgjs transparent-background already installed.");
     return;
   }
   
@@ -41,7 +41,7 @@ function install() {
     MODULE_PATH,
   ]);
 
-  console.log("rmbgjs transparent-background installed.");
+  console.log("> rmbgjs transparent-background installed.");
 }
 
 async function exec(input, mode) {
@@ -57,8 +57,8 @@ async function exec(input, mode) {
 
   const type = await fileTypeFromBuffer(input);
 
-  console.log("rmbgjs input type:", type.mime);
-  console.log("rmbgjs mode:", mode);
+  console.log("> rmbgjs input type:", type.mime);
+  console.log("> rmbgjs mode:", mode);
 
   // create tmp directory
   if (!fs.existsSync(TMP_PATH)) {
@@ -88,10 +88,10 @@ async function exec(input, mode) {
   const dstPath = path.join(TMP_PATH, srcName + "_rgba.png");
 
   if (!fs.existsSync(dstPath)) {
-    throw new Error("rmbgjs occurred error.");
+    throw new Error("> rmbgjs occurred error.");
   }
 
-  console.log("rmbgjs completed.");
+  console.log("> rmbgjs completed.");
   
   // to buffer
   return fs.readFileSync(dstPath);

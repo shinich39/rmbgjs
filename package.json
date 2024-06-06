@@ -1,11 +1,12 @@
 {
   "name": "rmbgjs",
   "version": "1.0.0",
-  "description": "Javascript module template.",
+  "description": "Remove background in javascript.",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "start": "node start.js"
   },
   "keywords": [
     "javascript"

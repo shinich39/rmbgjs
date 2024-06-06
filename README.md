@@ -2,7 +2,7 @@
 
 Remove background in javascript.
 
-This module wrapped [transparent-background](https://github.com/plemeri/transparent-background) module.
+This module wrap [transparent-background](https://github.com/plemeri/transparent-background) module to js.
 
 <img src="https://raw.githubusercontent.com/shinich39/rmbgjs/main/test/1.jpg" height="200px" /> <img src="https://raw.githubusercontent.com/shinich39/rmbgjs/main/test/2.png" height="200px" />
 
@@ -18,6 +18,16 @@ const output = await rmbg.exec(input, mode);
 
 // save image file
 fs.writeFileSync("./test/2.png", output);
+```
+
+- Batch process
+
+Copy and paste image files to "/rmbgjs/input" directory.
+
+Save processed images to "/rmbgjs/output" directory after processing.
+
+```console
+npm start
 ```
 
 ## References
